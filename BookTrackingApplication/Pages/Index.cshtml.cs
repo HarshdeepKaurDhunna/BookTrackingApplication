@@ -25,7 +25,12 @@ namespace BookTrackingApplication.Pages
 
         public async Task OnGetAsync()
         {
-            Books = await _context.Books.ToListAsync();
+            //Books = await _context.Books.ToListAsync();
+            Books = await _context.Books
+        .Include(b => b.CategoryType)
+            .ThenInclude(c => c.Category)
+        .AsNoTracking()
+        .ToListAsync();
         }
     }
 }
