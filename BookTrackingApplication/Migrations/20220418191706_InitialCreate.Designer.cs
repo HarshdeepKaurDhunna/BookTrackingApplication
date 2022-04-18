@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookTrackingApplication.Migrations
 {
     [DbContext(typeof(BookTrackingApplicationContext))]
-    [Migration("20220418175642_InitialCreate")]
+    [Migration("20220418191706_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace BookTrackingApplication.Migrations
                     b.Property<string>("CategoryTypeNameToken")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("NameToken")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,13 +45,13 @@ namespace BookTrackingApplication.Migrations
 
             modelBuilder.Entity("BookTrackingApplication.Models.Category", b =>
                 {
-                    b.Property<string>("Type")
+                    b.Property<string>("TypeCode")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Type");
+                    b.HasKey("TypeCode");
 
                     b.ToTable("Category");
                 });
@@ -64,19 +61,16 @@ namespace BookTrackingApplication.Migrations
                     b.Property<string>("NameToken")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CategoryType")
+                    b.Property<string>("CategoryTypeCode")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("NameToken");
 
-                    b.HasIndex("CategoryType");
+                    b.HasIndex("CategoryTypeCode");
 
                     b.ToTable("CategoryType");
                 });
@@ -94,7 +88,7 @@ namespace BookTrackingApplication.Migrations
                 {
                     b.HasOne("BookTrackingApplication.Models.Category", "Category")
                         .WithMany("CategoryTypies")
-                        .HasForeignKey("CategoryType");
+                        .HasForeignKey("CategoryTypeCode");
 
                     b.Navigation("Category");
                 });

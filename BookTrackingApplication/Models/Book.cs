@@ -14,7 +14,8 @@ namespace BookTrackingApplication.Models
         [Required]
         public string Author { get; set; }
 
-        public string NameToken { get; set; }
+        public string CategoryTypeNameToken { get; set; }
+
         public CategoryType CategoryType { get; set; }
     }
 }

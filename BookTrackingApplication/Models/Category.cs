@@ -8,7 +8,7 @@ namespace BookTrackingApplication.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Type { get; set; }
+        public string TypeCode { get; set; }
         public string Name { get; set; }
 
         public List<CategoryType> CategoryTypies { get; set; }

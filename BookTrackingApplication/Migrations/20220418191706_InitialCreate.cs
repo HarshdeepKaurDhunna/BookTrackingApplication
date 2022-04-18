@@ -10,12 +10,12 @@ namespace BookTrackingApplication.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    Type = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TypeCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Type);
+                    table.PrimaryKey("PK_Category", x => x.TypeCode);
                 });
 
             migrationBuilder.CreateTable(
@@ -24,17 +24,16 @@ namespace BookTrackingApplication.Migrations
                 {
                     NameToken = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryType = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CategoryTypeCode = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CategoryType", x => x.NameToken);
                     table.ForeignKey(
-                        name: "FK_CategoryType_Category_CategoryType",
-                        column: x => x.CategoryType,
+                        name: "FK_CategoryType_Category_CategoryTypeCode",
+                        column: x => x.CategoryTypeCode,
                         principalTable: "Category",
-                        principalColumn: "Type",
+                        principalColumn: "TypeCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -45,7 +44,6 @@ namespace BookTrackingApplication.Migrations
                     ISBN = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NameToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryTypeNameToken = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -65,9 +63,9 @@ namespace BookTrackingApplication.Migrations
                 column: "CategoryTypeNameToken");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryType_CategoryType",
+                name: "IX_CategoryType_CategoryTypeCode",
                 table: "CategoryType",
-                column: "CategoryType");
+                column: "CategoryTypeCode");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

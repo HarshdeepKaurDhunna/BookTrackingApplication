@@ -32,12 +32,12 @@
                                            @Html.DisplayFor(modelItem => item.Title)
                                         </td>
                                          <td>
-                                           @Html.DisplayFor(modelItem => item.CategoryType.Description)
+                                           @Html.DisplayFor(modelItem => item.CategoryType.NameToken)
                                         </td>
+                                        
                                         <td>
                                            @Html.DisplayFor(modelItem => item.CategoryType.Category.Name)
                                         </td>
-                   
                                     </tr>
                                 }
                             </tbody>

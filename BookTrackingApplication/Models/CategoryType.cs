@@ -13,9 +13,8 @@ namespace BookTrackingApplication.Models
         public string NameToken { get; set; }
         [Required]
         public string Description { get; set; }
+        public string CategoryTypeCode { get; set; }
 
-
-        public string Type { get; set; }
         public Category Category { get; set; }
         public List<Book> Books { get; set; }
        
