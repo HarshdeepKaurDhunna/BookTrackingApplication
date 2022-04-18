@@ -7,4 +7,39 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+       <table class=" table table-bordered table-stripped">
+              <thead>
+                                <tr>
+                                    <th>ISBN</th>
+                                    <th>Author</th>
+                                    <th>Title</th>
+                                    <th>CategoryType Description</th>
+                                    <th>Category Name</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Books.Count; i++)
+                                {
+                                    var item = Model.Books[i];
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISBN)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Author)
+                                        </td>
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                         <td>
+                                           @Html.DisplayFor(modelItem => item.CategoryType.Description)
+                                        </td>
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.CategoryType.Category.Name)
+                                        </td>
+                   
+                                    </tr>
+                                }
+                            </tbody>
+            </table>
 </div>

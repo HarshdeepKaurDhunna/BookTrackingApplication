@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookTrackingApplication.Models
 {
     public class Category
     {
-
         [Key]
-        public string NameToken { get; set; }
-        public string Description { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Type { get; set; }
+        public string Name { get; set; }
 
-       
-        public List<Book> Books { get; set; }
         public List<CategoryType> CategoryTypies { get; set; }
     }
 }
