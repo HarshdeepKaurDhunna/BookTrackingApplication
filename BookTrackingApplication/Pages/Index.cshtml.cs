@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BookTrackingApplication.Data;
 using BookTrackingApplication.Models;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace BookTrackingApplication.Pages
 {
@@ -15,22 +13,25 @@ namespace BookTrackingApplication.Pages
     {
         private readonly BookTrackingApplicationContext _context;
 
+        public List<Book> Books { get; set; }
+       
+        
         public IndexModel(BookTrackingApplicationContext context)
         {
             _context = context;
         }
 
-
-        public IList<Book> Books { get; set; }
-
         public async Task OnGetAsync()
         {
             //Books = await _context.Books.ToListAsync();
             Books = await _context.Books
-        .Include(b => b.CategoryType)
-            .ThenInclude(c => c.Category)
-        .AsNoTracking()
-        .ToListAsync();
+                    .Include(b => b.CategoryType)
+                        .ThenInclude(c => c.Category)
+                    .AsNoTracking()
+                    .ToListAsync();
+
         }
+
+       
     }
 }

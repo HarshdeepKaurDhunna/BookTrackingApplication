@@ -1,0 +1,135 @@
+﻿@page "/"
+@model BookTrackingApplication.Pages.Books.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@section JSONLD{
+    [
+    @foreach(var entry in Model.JSONLD){
+        @Html.Raw(entry.ToHtmlEscapedString() + ',');
+    }
+    ]
+}
+
+<div class="grid-box">
+  <div class="grid-heading">
+   <h4>Add/Edit Books</h4>
+  </div>
+  <!-- Grid Heading Ends -->
+
+  <div class="grid-inner" >
+    <form method="post">
+      <div class="form-row">
+        <div class="row min-ht-sf">
+            <div class="col-md-4 col-xs-12">
+                    <label asp-for="Book.Title" class="control-label"></label>
+                    <input asp-for="Book.Title" class="form-control" />
+                    <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <label asp-for="Book.ISBN" class="control-label"></label>
+                <input id="editInput" asp-for="Book.ISBN" class="form-control" />
+                <span asp-validation-for="Book.ISBN" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <label asp-for="Book.Author" class="control-label"></label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <label asp-for="Book.CategoryType" class="control-label"></label>
+                <select asp-for="Book.CategoryTypeNameToken" class="form-control"
+                        asp-items="@Model.CategoryTypiesSL">
+                    <option value="">Select CategoryType</option>
+                </select>
+                <span asp-validation-for="Book.CategoryTypeNameToken" class="text-danger" />
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <input type="hidden" asp-for="Book.bookNum" />
+                 <label class="control-label"></label>
+                 <input  id = "addButton" type="submit" value="Add" class="btn btn-primary" />
+                 <a style = "margin-left: 6px; padding: 8px;font-size: 1em;"class="btn btn-secondary" asp-page="/Books/Index">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+  </form>
+  
+    <!-- Form Row ENds -->
+</div>
+  <!-- Grid Inner Ends -->
+</div>
+<div  class="grid-box">
+    <div class="grid-heading">
+     <h4>Books List</h4>
+    </div>
+  <div class="grid-inner">
+   
+    <!-- Form Row Ends -->
+
+    <div class="form-row">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 table-col">
+          <div class="table-responsive">
+             <table class=" table table-bordered table-stripped">
+              <thead>
+                                <tr>
+                                    <th>ISBN</th>
+                                    <th>Author</th>
+                                    <th>Title</th>
+                                    <th>CategoryType Description</th>
+                                    <th>Category Name</th>
+                                    <th></th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Books.Count; i++)
+                                {
+                                    var item = Model.Books[i];
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISBN)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Author)
+                                        </td>
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                         <td>
+                                           @Html.DisplayFor(modelItem => item.CategoryType.Description)
+                                        </td>
+                                        
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.CategoryType.Category.Name)
+                                        </td>
+                                         <td>
+                                            <a asp-action="Edit" asp-route-id="@item.bookNum">Edit</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.bookNum">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+            </table>
+          </div>
+          <!-- Table Ends -->
+        </div>
+      </div>
+    </div>
+    <!-- Form Row ENds -->
+
+  </div>
+  <!-- Grid Inner Ends -->
+
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.location.href.indexOf("Edit") > -1) {
+                $('#editInput').prop('disabled', true);
+                $("#addButton").prop('value', 'Edit');
+            }
+        });
+       
+</script> 
+}

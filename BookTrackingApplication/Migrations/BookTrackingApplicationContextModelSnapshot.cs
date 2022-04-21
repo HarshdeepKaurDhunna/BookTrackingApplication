@@ -34,6 +34,11 @@ namespace BookTrackingApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("bookNum")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.HasKey("ISBN");
 
                     b.HasIndex("CategoryTypeNameToken");
@@ -45,6 +50,11 @@ namespace BookTrackingApplication.Migrations
                 {
                     b.Property<string>("TypeCode")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CategoryNum")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -61,6 +71,11 @@ namespace BookTrackingApplication.Migrations
 
                     b.Property<string>("CategoryTypeCode")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CategoryTypeNum")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()

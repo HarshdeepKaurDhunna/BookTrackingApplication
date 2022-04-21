@@ -11,6 +11,10 @@ namespace BookTrackingApplication.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         public string NameToken { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CategoryTypeNum { get; set; }
+
         [Required]
         public string Description { get; set; }
         public string CategoryTypeCode { get; set; }

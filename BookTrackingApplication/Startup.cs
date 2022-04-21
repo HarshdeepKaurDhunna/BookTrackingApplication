@@ -1,6 +1,7 @@
 using BookTrackingApplication.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,11 +27,12 @@ namespace BookTrackingApplication
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDatabaseDeveloperPageExceptionFilter();
-            
+           services.AddResponseCaching();
             services.AddDbContext<BookTrackingApplicationContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +48,28 @@ namespace BookTrackingApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-          
 
             app.UseHttpsRedirection();
+            
+            app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            { 
+                context.Response.GetTypedHeaders().CacheControl =
+                new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                {
+                    Public = true,
+                    MaxAge = TimeSpan.FromDays(365)
+                };
+                await next();
+            });
+
+           
+
+           
             app.UseStaticFiles();
+
+          
 
             app.UseRouting();
 

@@ -11,6 +11,8 @@ namespace BookTrackingApplication.Migrations
                 columns: table => new
                 {
                     TypeCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CategoryNum = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -23,6 +25,8 @@ namespace BookTrackingApplication.Migrations
                 columns: table => new
                 {
                     NameToken = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CategoryTypeNum = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryTypeCode = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -42,6 +46,8 @@ namespace BookTrackingApplication.Migrations
                 columns: table => new
                 {
                     ISBN = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    bookNum = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryTypeNameToken = table.Column<string>(type: "nvarchar(450)", nullable: true)

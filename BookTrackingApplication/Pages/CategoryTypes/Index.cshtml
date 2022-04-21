@@ -1,0 +1,117 @@
+﻿@page
+@model BookTrackingApplication.Pages.CategoryTypes.IndexModel
+@{ 
+    ViewData["Title"] = "CategoryType page";
+
+}   
+
+<div class="grid-box">
+  <div class="grid-heading">
+   <h4>Add/Edit Books</h4>
+  </div>
+  <!-- Grid Heading Ends -->
+
+  <div class="grid-inner" >
+    <form method="post">
+      <div class="form-row">
+        <div class="row min-ht-sf">
+             <div class="col-md-2 col-xs-12">
+                <label asp-for="categoryType.NameToken" class="control-label"></label>
+                <input id = "editCTInput" asp-for="categoryType.NameToken" class="form-control" />
+                <span asp-validation-for="categoryType.NameToken" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <label asp-for="categoryType.Description" class="control-label"></label>
+                <input asp-for="categoryType.Description" class="form-control" />
+                <span asp-validation-for="categoryType.Description" class="text-danger"></span>
+            </div>
+           
+           <div class="col-md-2 col-xs-12">
+                <label asp-for="categoryType.Category" class="control-label"></label>
+                <select asp-for="categoryType.CategoryTypeCode" class="form-control">
+                    <option value="">Select CategoryType</option>
+                    <option value="Fict">Fiction</option>
+                    <option value="NFict">Non-Fiction</option>
+                </select>
+                <span asp-validation-for="categoryType.CategoryTypeCode" class="text-danger" />
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <input type="hidden" asp-for="categoryType.CategoryTypeNum" />
+                 <label class="control-label"></label>
+                 <input  id = "addCTButton" type="submit" value="Add" class="btn btn-primary" />
+                 <a style = "margin-left: 6px; padding: 8px;font-size: 1em;"class="btn btn-secondary" asp-page="/CategoryTypes/Index">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+  </form>
+  
+    <!-- Form Row ENds -->
+</div>
+  <!-- Grid Inner Ends -->
+</div>
+<div  class="grid-box">
+    <div class="grid-heading">
+     <h4>CategoryType List</h4>
+    </div>
+  <div class="grid-inner">
+   
+    <!-- Form Row Ends -->
+
+    <div class="form-row">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 table-col">
+          <div class="table-responsive">
+             <table class=" table table-bordered table-stripped">
+              <thead>
+                    <tr>
+                        <th>Name Token</th>
+                        <th>Description</th>
+                        <th>Category Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.CategoryTypies.Count; i++)
+                    {
+                        var item = Model.CategoryTypies[i];
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameToken)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.Name)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.CategoryTypeNum">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.CategoryTypeNum">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+          </div>
+          <!-- Table Ends -->
+        </div>
+      </div>
+    </div>
+    <!-- Form Row ENds -->
+
+  </div>
+  <!-- Grid Inner Ends -->
+
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.location.href.indexOf("Edit") > -1) {
+                $('#editCTInput').prop('disabled', true);
+                $("#addCTButton").prop('value', 'Edit');
+            }
+        });
+       
+</script> 
+}
